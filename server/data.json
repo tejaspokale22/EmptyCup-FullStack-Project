@@ -1,0 +1,38 @@
+[
+  {
+    "id": 2,
+    "name": "Studio ArtLine",
+    "years": 10,
+    "projects": 45,
+    "rating": 5,
+    "price": "$$",
+    "phones": ["+91-9090909090"]
+  },
+  {
+    "id": 3,
+    "name": "Design Pros",
+    "years": 7,
+    "projects": 30,
+    "rating": 4.5,
+    "price": "$",
+    "phones": ["+91-9876543210"]
+  },
+  {
+    "id": 4,
+    "name": "Creative Minds",
+    "years": 12,
+    "projects": 60,
+    "rating": 4,
+    "price": "$$$",
+    "phones": ["+91-9123456789", "+91-9000000000"]
+  },
+  {
+    "id": 5,
+    "name": "NextGen Studio",
+    "years": 5,
+    "projects": 20,
+    "rating": 3,
+    "price": "$",
+    "phones": ["+91-9988776655"]
+  }
+  ]

@@ -7,6 +7,7 @@
     <link href="./output.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="./script.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Acme&family=Afacad+Flux:wght@100..1000&family=Archivo+Black&family=Chivo:ital,wght@0,100..900;1,100..900&family=Domine:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Noto+Serif+Dives+Akuru&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Russo+One&display=swap"
       rel="stylesheet"
@@ -40,7 +41,7 @@
     <div
       class="flex justify-between bg-white py-3 border-b px-3 border-gray-200"
     >
-      <div class="flex gap-6">
+      <div class="flex gap-6 cursor-pointer">
         <div class="flex flex-col items-center justify-center">
           <img src="./assets/contacts.svg" alt="Contacts" class="w-12 h-12" />
         </div>
@@ -51,14 +52,17 @@
           <img src="./assets/map.svg" alt="Contacts" class="w-12 h-12" />
         </div>
       </div>
-      <div class="flex gap-6">
-        <div class="flex flex-col items-center justify-center">
+      <div class="flex gap-6 cursor-pointer">
+        <button
+          id="filterToggle"
+          class="flex flex-col items-center justify-center cursor-pointer"
+        >
           <img
             src="./assets/shortlisted.svg"
-            alt="Contacts"
+            alt="Toggle Shortlisted"
             class="w-[42px] h-[46px]"
           />
-        </div>
+        </button>
         <div class="flex flex-col items-center justify-center">
           <img src="./assets/sort.svg" alt="Contacts" class="w-12 h-12" />
         </div>
@@ -66,20 +70,24 @@
     </div>
 
     <!-- Designer Cards -->
-    <div class="border-b border-gray-200 w-full">
+    <div id="designers-container" class="border-b border-gray-200 w-full">
       <div
-        class="bg-[#FFFCF2] px-4 py-6 flex gap-3 font-normal w-full border-b border-gray-200"
+        class="bg-[#FFFCF2] px-4 py-6 flex gap-3 font-normal w-full border-b border-gray-200 designer-card"
+        data-id="1"
       >
         <div class="border-r border-gray-200 px-4 py-3 min-w-[340px]">
-          <h2 class="font-[400] font-bold text-[18px] text-black">
+          <h2 class="font-[400] font-bold text-[18px] text-black title">
             Epic Designs
           </h2>
           <div
             class="flex items-center space-x-1 text-yellow-500 text-base mt-1 mb-3"
           >
-            <img src="./assets/stars1.svg" alt="stars1" />
+            <img src="./assets/star.svg" alt="star" />
+            <img src="./assets/star.svg" alt="star" />
+            <img src="./assets/star.svg" alt="star" />
+            <img src="./assets/star.svg" alt="star" />
           </div>
-          <p class="text-[10px] text-black mt-4 mb-6 max-w-[211px]">
+          <p class="text-[10px] text-black mt-4 mb-6 max-w-[211px] description">
             Passionate team of 4 designers working out of Bangalore with an
             experience of 4 years.
           </p>
@@ -87,19 +95,19 @@
             class="flex justify-between mt-4 text-center text-sm mb-6 text-black max-w-[190px]"
           >
             <div>
-              <div class="font-bold text-[24px]">57</div>
+              <div class="font-bold text-[24px] projects">57</div>
               <div class="text-[10px]">Projects</div>
             </div>
             <div>
-              <div class="font-bold text-[24px]">8</div>
+              <div class="font-bold text-[24px] years">8</div>
               <div class="text-[10px]">Years</div>
             </div>
             <div>
-              <div class="font-bold text-[24px]">$$</div>
+              <div class="font-bold text-[24px] price">$$</div>
               <div class="text-[10px]">Price</div>
             </div>
           </div>
-          <div class="mt-4 space-y-1 text-[16px] mb-2 text-black">
+          <div class="mt-4 space-y-1 text-[16px] mb-2 text-black contact">
             <div>+91 - 984532853</div>
             <div>+91 - 984532854</div>
           </div>
@@ -119,7 +127,10 @@
             <img src="./assets/eye.svg" alt="hide" class="w-[20px] h-[20px]" />
             <p class="text-[#8D4337] text-[8px]">Hide</p>
           </div>
-          <div class="flex flex-col items-center gap-1">
+          <div
+            class="flex flex-col items-center gap-1 shortlist-btn"
+            data-id="1"
+          >
             <img
               src="./assets/shortlist.svg"
               alt="shortlist"
