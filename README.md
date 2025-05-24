@@ -1,1 +1,1 @@
-# EmptyCup-fullStack-Project
+# EmptyCup-FullStack-Project
