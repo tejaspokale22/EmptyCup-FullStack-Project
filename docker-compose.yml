@@ -1,0 +1,15 @@
+# docker-compose.yml
+
+version: "3.8"
+services:
+  frontend:
+    build: ./client
+    ports:
+      - "3000:80"    # access frontend at http://localhost:3000
+    container_name: frontend-app
+
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"  # access API at http://localhost:5000
+    container_name: backend-api
