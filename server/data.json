@@ -1,12 +1,12 @@
 [
   {
     "id": 2,
-    "name": "Studio ArtLine",
-    "years": 10,
-    "projects": 45,
-    "rating": 5,
-    "price": "$$",
-    "phones": ["+91-9090909090"]
+    "name": "Studio D3",
+    "years": 6,
+    "projects": 43,
+    "rating": 4.5,
+    "price": "$$$",
+    "phones": ["+91-9090909090","+91-9090909090"]
   },
   {
     "id": 3,

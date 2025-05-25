@@ -1,6 +1,7 @@
 let shortlisted = {};
-let showOnlyShortlisted = false;
+let shortlistFilter = false;
 
+//useEffect on load
 document.addEventListener("DOMContentLoaded", () => {
   fetchDesigners();
   // Check and initialize shortlisted in localStorage if not present
@@ -11,34 +12,33 @@ document.addEventListener("DOMContentLoaded", () => {
     shortlisted = {};
     localStorage.setItem("shortlisted", JSON.stringify(shortlisted));
   }
+  setTimeout(() => {
+    const buttons = document.querySelectorAll(".shortlist-btn");
+    const cards = document.querySelectorAll(".designer-card");
+    cards.forEach((card) => {
+      const id = card.dataset.id;
+      if (shortlisted[id]) {
+        card.classList.add("bg-[#FFFCF2]");
+        card.classList.remove("bg-white");
+      } else {
+        card.classList.add("bg-white");
+        card.classList.remove("bg-[#FFFCF2]");
+      }
+    });
+    buttons.forEach((btn) => {
+      const id = btn.getAttribute("data-id");
+      const img = btn.querySelector("img");
+      const p = btn.querySelector("p");
 
-  // // Setup event listeners for all shortlist buttons
-  // document.querySelectorAll(".shortlist-btn").forEach((btn) => {
-  //   const id = btn.getAttribute("data-id").toString();
-  //   const img = btn.querySelector("img");
-  //   const p = btn.querySelector("p");
-
-  //   if (shortlisted[id]) {
-  //     img.src = "./assets/shortlist.svg";
-  //     p.textContent = "Shortlisted";
-  //   } else {
-  //     img.src = "./assets/notShortlist.svg";
-  //     p.textContent = "Shortlist";
-  //   }
-
-  //   btn.addEventListener("click", () => toggleShortlist(id, btn));
-  // });
-
-  // // Filter toggle button
-  // const filterToggle = document.getElementById("filterToggle");
-  // if (filterToggle) {
-  //   filterToggle.addEventListener("click", () => {
-  //     showOnlyShortlisted = !showOnlyShortlisted;
-  //     filterCards();
-  //   });
-  // }
-
-  // filterCards(); // Apply initial filter state
+      if (shortlisted[id]) {
+        img.src = "./assets/shortlist.svg";
+        p.textContent = "Shortlisted";
+      } else {
+        img.src = "./assets/notShortlist.svg";
+        p.textContent = "Shortlist";
+      }
+    });
+  }, 600);
 });
 
 // Fetch designer data
@@ -62,7 +62,7 @@ function renderDesigners(designers) {
     // Main card
     const card = document.createElement("div");
     card.className =
-      "bg-[#FFFCF2] px-4 py-6 flex gap-3 font-normal w-full border-b border-gray-200 designer-card";
+      "px-4 py-6 flex gap-3 font-normal w-full border-b border-gray-200 designer-card";
     card.dataset.id = id;
 
     // Left section
@@ -139,7 +139,7 @@ function renderDesigners(designers) {
       { icon: "arrow", label: "Details", w: 23, h: 22 },
       { icon: "eye", label: "Hide", w: 20, h: 20 },
       {
-        icon: "shortlist",
+        icon: "notShortlist",
         label: "Shortlist",
         w: 17.25,
         h: 21,
@@ -175,58 +175,52 @@ function renderDesigners(designers) {
   });
 }
 
-// Toggle shortlist status
-// function toggleShortlist(id, element) {
-//   id = id.toString();
-//   shortlisted[id] = !shortlisted[id];
-//   localStorage.setItem("shortlisted", JSON.stringify(shortlisted));
-//   updateShortlistVisual(id, element);
-//   filterCards();
-// }
-
-// Update button visuals
-// function updateShortlistVisual(id, btn) {
-//   const img = btn.querySelector("img");
-//   const p = btn.querySelector("p");
-//   if (shortlisted[id]) {
-//     img.src = "./assets/shortlist.svg";
-//     p.textContent = "Shortlisted";
-//   } else {
-//     img.src = "./assets/notShortlist.svg";
-//     p.textContent = "Shortlist";
-//   }
-// }
-
-// Apply filter
-// function filterCards() {
-//   document.querySelectorAll(".designer-card").forEach((card) => {
-//     const id = card.getAttribute("data-id");
-//     const shouldHide = showOnlyShortlisted && !shortlisted[id];
-//     card.classList.toggle("hidden", shouldHide);
-//   });
-
-//   const toggleImg = document.querySelector("#filterToggle img");
-//   if (toggleImg) {
-//     toggleImg.src = showOnlyShortlisted
-//       ? "./assets/shortlisted.svg"
-//       : "./assets/shortlisted.svg";
-//   }
-// }
-
+//Handle shortlist toggle
 document.addEventListener("click", (event) => {
   const btn = event.target.closest(".shortlist-btn");
   if (btn) {
     const id = btn.dataset.id;
     if (!id) return;
-
+    const img = btn.querySelector("img");
+    const text = btn.querySelector("p");
+    const card = document.querySelector(`[data-id="${id}"]`);
     if (shortlisted[id]) {
-      // If shortlisted, unshortlist it (toggle false)
       shortlisted[id] = false;
+      img.src = "./assets/notShortlist.svg";
+      text.textContent = "Shortlist";
+      card.classList.add("bg-white");
+      card.classList.remove("bg-[#FFFCF2]");
     } else {
-      // If not shortlisted, shortlist it
       shortlisted[id] = true;
+      img.src = "./assets/shortlist.svg";
+      text.textContent = "Shortlisted";
+      card.classList.add("bg-[#FFFCF2]");
+      card.classList.remove("bg-white");
     }
+    localStorage.setItem("shortlisted", JSON.stringify(shortlisted));
+  }
+});
 
-    console.log(`ID: ${id}, shortlisted: ${shortlisted[id]}`);
+// Handle filter toggle
+document.addEventListener("click", (event) => {
+  shortlistFilter = !shortlistFilter;
+  console.log(shortlistFilter);
+  const filterBtn = event.target.closest("#filterToggle");
+  if (filterBtn) {
+    console.log("running");
+    const cards = document.querySelectorAll(".designer-card");
+    cards.forEach((card) => {
+      const id = card.dataset.id;
+      const isShortlisted = shortlisted[id];
+      if (shortlistFilter) {
+        if (!isShortlisted) {
+          card.classList.add("hidden");
+          card.classList.remove("flex");
+        }
+      } else {
+        card.classList.add("flex");
+        card.classList.remove("hidden");
+      }
+    });
   }
 });
